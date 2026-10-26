@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microduck — AI, Aesthetics & Society</title>
+<style>
+:root {
+  --bg: #10120f;
+  --panel: #191c17;
+  --text: #f2f0e8;
+  --muted: #a5aa9c;
+  --lime: #d7ff65;
+  --line: #383d32;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.65;
+}
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 14px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(16,18,15,.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+}
+.logo { font-weight: 800; letter-spacing: -.04em; }
+.logo span { color: var(--lime); }
+nav a { color: var(--muted); text-decoration: none; margin-left: 18px; font-size: 13px; }
+nav a:hover { color: var(--lime); }
+section { padding: 90px max(7%, calc((100% - 1080px)/2)); }
+.hero {
+  min-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at 80% 30%, #344126 0, transparent 35%),
+    radial-gradient(ellipse at 10% 90%, #252c21 0, transparent 35%);
+}
+.kicker {
+  color: var(--lime);
+  font-size: 12px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+h1 { font-size: clamp(58px, 12vw, 130px); line-height: .92; letter-spacing: -.08em; margin: 24px 0; }
+h1 span { color: var(--lime); }
+.subtitle { max-width: 680px; color: var(--muted); font-size: clamp(18px, 2.5vw, 25px); }
+.meta { margin-top: 45px; color: var(--muted); font-size: 13px; }
+.section-no { color: var(--lime); font-size: 13px; letter-spacing: .14em; }
+h2 { font-size: clamp(34px, 6vw, 65px); line-height: 1.05; letter-spacing: -.055em; margin: 16px 0 26px; }
+h3 { font-size: 21px; margin-top: 0; }
+p { color: var(--muted); }
+.lead { color: var(--text); font-size: 21px; max-width: 780px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 35px; }
+.card { background: var(--panel); border: 1px solid var(--line); padding: 26px; border-radius: 14px; }
+.card .num { color: var(--lime); font-size: 12px; margin-bottom: 24px; }
+.callout { border-left: 3px solid var(--lime); padding: 12px 0 12px 22px; margin: 35px 0; color: var(--text); font-size: 23px; }
+.darkband { background: #d7ff65; color: #10120f; }
+.darkband p, .darkband .section-no { color: #404b2a; }
+.darkband h2 { max-width: 850px; }
+.trend { display: grid; grid-template-columns: 120px 1fr; gap: 25px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+.trend strong { color: var(--lime); }
+.quote { font-size: clamp(25px, 4vw, 42px); letter-spacing: -.03em; line-height: 1.3; color: var(--text); }
+.source { font-size: 13px; overflow-wrap: anywhere; }
+a { color: var(--lime); }
+footer { border-top: 1px solid var(--line); padding: 35px 7%; color: var(--muted); font-size: 13px; display: flex; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+@media(max-width:650px) {
+  nav a { margin-left: 8px; font-size: 11px; }
+  section { padding-top: 65px; padding-bottom: 65px; }
+  .grid { grid-template-columns: 1fr; }
+  .trend { grid-template-columns: 1fr; gap: 5px; }
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">MICRO<span>DUCK</span></div>
+  <div>
+    <a href="#novelty">01 新意</a>
+    <a href="#trend">02 趋势</a>
+    <a href="#society">03 社会</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="kicker">A small object, a bigger question</div>
+  <h1>MICRO<br><span>DUCK.</span></h1>
+  <div class="subtitle">当 AI 不再只追求更大、更快、更强，它开始变得微小、古怪、可爱——这意味着什么？</div>
+  <div class="meta">AI CULTURE / AESTHETICS / SOCIETY　·　2026</div>
+</section>
+
+<section id="novelty">
+  <div class="section-no">01 / THE NOVELTY</div>
+  <h2>为什么一个小鸭子，<br>值得认真讨论？</h2>
+  <p class="lead">从 NVIDIA 发布会的技术叙事出发，我们看到的可能不只是一个新奇的物件，而是 AI 如何进入现实世界的一种新想象。</p>
+  <div class="grid">
+    <article class="card">
+      <div class="num">01 — SCALE</div>
+      <h3>从宏大到微小</h3>
+      <p>AI 的主流叙事长期围绕数据中心、算力集群与巨型模型。Microduck 式的微型化想象，把注意力从遥远的基础设施带回日常生活。</p>
+    </article>
+    <article class="card">
+      <div class="num">02 — PRESENCE</div>
+      <h3>从屏幕到身边</h3>
+      <p>AI 不一定只存在于聊天窗口。它也可以成为一个可见、可触、能被人带在身边的存在，让交互发生在物理空间中。</p>
+    </article>
+    <article class="card">
+      <div class="num">03 — PERSONALITY</div>
+      <h3>从工具到角色</h3>
+      <p>一个有形象的 AI 更容易被人赋予性格、情绪和故事。设计不再只是外观，而是人机关系的一部分。</p>
+    </article>
+    <article class="card">
+      <div class="num">04 — CONTRAST</div>
+      <h3>技术与可爱的反差</h3>
+      <p>复杂的技术被包裹在轻巧、幽默甚至略显荒诞的形式里。反差本身就能成为传播力和公众理解的入口。</p>
+    </article>
+  </div>
+  <div class="callout">真正的新意，未必是鸭子有多聪明，而是我们开始用什么样的形式想象智能。</div>
+</section>
+
+<section id="trend" class="darkband">
+  <div class="section-no">02 / THE TREND</div>
+  <h2>AI 的下一种审美：<br>不只是智能，也是一种存在方式。</h2>
+  <p class="lead">从模型能力到产品体验，AI 正在进入一个必须同时回答“它能做什么”与“人愿意怎样和它相处”的阶段。</p>
+</section>
+
+<section>
+  <div class="trend">
+    <strong>01 / AESTHETICS</strong>
+    <div><h3>可爱、玩具化与反宏大叙事</h3><p>科技产品不一定需要冷峻的金属外观或专业感。玩具般的形态可以降低心理距离，让技术更亲近，也让人更愿意讨论它。</p></div>
+  </div>
+  <div class="trend">
+    <strong>02 / RESEARCH</strong>
+    <div><h3>从模型能力到具身交互</h3><p>当 AI 连接传感器、设备和真实环境，研究问题就不再只有语言与推理，也包括感知、行动、反馈，以及在物理世界中的可靠性。</p></div>
+  </div>
+  <div class="trend">
+    <strong>03 / APPLICATION</strong>
+    <div><h3>从一次性问答到持续陪伴</h3><p>微型设备让人想到环境感知、个人助理、教育、陪伴和情境化服务。但这些都是可能的应用方向，并不代表某个具体设备已经具备这些能力。</p></div>
+  </div>
+  <div class="trend">
+    <strong>04 / DESIGN</strong>
+    <div><h3>人格化成为产品界面</h3><p>声音、动作、外形和回应节奏，都可能成为人理解 AI 的方式。设计也因此影响信任、依赖、隐私感受和用户预期。</p></div>
+  </div>
+</section>
+
+<section id="society">
+  <div class="section-no">03 / THE SOCIAL REACTION</div>
+  <h2>当技术变得可爱，<br>社会会如何回应？</h2>
+  <p class="lead">新技术进入大众文化时，反应往往不是单一的赞美或恐惧，而是好奇、玩梗、想象与质疑同时发生。</p>
+  <div class="grid">
+    <article class="card">
+      <div class="num">REACTION A</div>
+      <h3>好奇与病毒式传播</h3>
+      <p>微小、反差感强的物件很容易成为梗图和短视频素材。幽默让复杂技术更容易被看见，也更容易进入大众对话。</p>
+    </article>
+    <article class="card">
+      <div class="num">REACTION B</div>
+      <h3>拟人化与情感投射</h3>
+      <p>人们可能把意图、情绪和个性投射到一个设备上。它看起来越像一个角色，人们越可能用社会关系的方式理解它。</p>
+    </article>
+    <article class="card">
+      <div class="num">REACTION C</div>
+      <h3>实用性与炒作的争论</h3>
+      <p>一个可爱的演示能激发想象，但观众也会追问：它究竟能做什么？是否真的有用？演示效果与日常可靠性之间有多大距离？</p>
+    </article>
+    <article class="card">
+      <div class="num">REACTION D</div>
+      <h3>隐私与边界</h3>
+      <p>当 AI 可能常驻生活空间，人们会关心它何时在听、数据去往哪里、能否关闭，以及谁来承担错误的后果。</p>
+    </article>
+  </div>
+  <div class="callout">越是像玩具的 AI，越需要认真回答关于信任、隐私和责任的问题。</div>
+</section>
+
+<section>
+  <div class="section-no">THE BIGGER QUESTION</div>
+  <p class="quote">“我们讨论的也许不只是一只鸭子，而是智能如何从一种能力，变成一种日常生活中的存在。”</p>
+  <p>Microduck 可以作为一个文化切口：它让我们同时讨论技术尺度、产品审美、人类情感与社会边界。真正值得观察的，是这种想象最终会变成怎样的真实体验。</p>
+</section>
+
+<section>
+  <div class="section-no">SOURCES / FURTHER READING</div>
+  <h2 style="font-size:38px">从哪里开始核实？</h2>
+  <p>以下是查证发布会背景、技术趋势与社会议题的入口。请在演讲前补充 Microduck 对应的具体发布会视频时间戳和真实社交媒体反应，避免把推测当作已经发生的事实。</p>
+  <p class="source"><a href="https://www.nvidia.com/en-us/events/" target="_blank" rel="noreferrer">NVIDIA Events — 官方活动入口</a></p>
+  <p class="source"><a href="https://developer.nvidia.com/" target="_blank" rel="noreferrer">NVIDIA Developer — 技术与开发者资源</a></p>
+  <p class="source"><a href="https://arxiv.org/search/?query=embodied+AI&searchtype=all" target="_blank" rel="noreferrer">arXiv — Embodied AI 相关研究检索</a></p>
+  <p class="source"><a href="https://arxiv.org/search/?query=human+robot+interaction&searchtype=all" target="_blank" rel="noreferrer">arXiv — Human-Robot Interaction 相关研究检索</a></p>
+  <p class="source"><a href="https://www.pewresearch.org/" target="_blank" rel="noreferrer">Pew Research Center — 科技与社会态度研究</a></p>
+</section>
+
+<footer>
+  <span>MICRODUCK / AI CULTURE NOTES</span>
+  <span>A presentation starter — verify specific claims before presenting.</span>
+</footer>
+</body>
+</html>
