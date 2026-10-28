@@ -3,467 +3,553 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MICRODUCK — A Physical AI Field Note</title>
-<meta name="description" content="A Tech Radar on Microduck, reinforcement learning, embodied AI, open robotics, and NVIDIA's Physical AI strategy.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#fbf7ee">
+<title>Microduck — Small Robot, Big Ideas</title>
+<meta name="description" content="A playful field guide to Microduck, reinforcement learning, embodied AI and Physical AI.">
 <style>
 :root {
-  --paper:#f8f5ec;
-  --ink:#24251f;
-  --muted:#77776e;
-  --blue:#b9e5ef;
-  --orange:#ffb27c;
-  --yellow:#f6d967;
-  --purple:#d6c6f0;
-  --green:#d9e7c7;
-  --line:#dedbd1;
-  --white:#fffdf7;
+  --bg: #fbf7ee;
+  --paper: #fffdf7;
+  --ink: #252821;
+  --muted: #696d63;
+  --blue: #bde6f5;
+  --orange: #ff986b;
+  --purple: #d9cafa;
+  --yellow: #f7dc73;
+  --green: #dce9c9;
+  --line: #292c25;
+  --shadow: 4px 5px 0 var(--line);
 }
-* { box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  margin:0;
-  background:var(--paper);
-  color:var(--ink);
-  font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  line-height:1.55;
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 8% 8%, #f8e8bd 0, transparent 24rem),
+    var(--bg);
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "PingFang SC", "Microsoft YaHei", sans-serif;
+  line-height: 1.65;
 }
-a { color:inherit; text-decoration-thickness:1px; text-underline-offset:3px; }
-button { font:inherit; }
-.wrap { width:min(1120px,92%); margin:auto; }
+a { color: inherit; }
+img { display: block; max-width: 100%; }
+.wrap { width: min(1100px, 90%); margin: auto; }
 nav {
-  display:flex; justify-content:space-between; align-items:center;
-  padding:20px 0; border-bottom:1px solid var(--line);
-  font-size:12px; text-transform:uppercase; letter-spacing:.09em;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 5%;
+  background: rgba(251,247,238,.92);
+  border-bottom: 1.5px solid var(--line);
+  backdrop-filter: blur(12px);
 }
-.brand { font-weight:950; letter-spacing:-.04em; font-size:19px; }
-.navlinks { display:flex; gap:18px; flex-wrap:wrap; }
-.navlinks a { text-decoration:none; color:var(--muted); }
+.logo {
+  text-decoration: none;
+  font-weight: 950;
+  letter-spacing: -.06em;
+  white-space: nowrap;
+}
+.logo span { color: #e66f45; }
+.nav-links { display: flex; flex-wrap: wrap; gap: 18px; }
+.nav-links a {
+  font-size: 12px;
+  font-weight: 750;
+  text-decoration: none;
+}
+.nav-links a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .hero {
-  padding:65px 0 54px;
-  display:grid; grid-template-columns:1.02fr .98fr;
-  gap:30px; align-items:center;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  align-items: center;
+  gap: 30px;
+  padding: 68px 0 48px;
 }
-.eyebrow {
-  display:inline-block; border:1.5px solid var(--ink);
-  border-radius:999px; padding:6px 11px;
-  font-size:10px; font-weight:800; letter-spacing:.12em;
-  text-transform:uppercase; background:var(--yellow);
+.kicker, .eyebrow {
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: .15em;
+  text-transform: uppercase;
 }
+.kicker { color: #b8512f; }
 h1 {
-  font-size:clamp(60px,10vw,126px);
-  letter-spacing:-.095em; line-height:.78;
-  margin:28px 0 22px; font-weight:1000;
+  margin: 20px 0;
+  font-size: clamp(62px, 10vw, 112px);
+  line-height: .86;
+  letter-spacing: -.09em;
 }
-.hero h1 span { display:block; }
-.hero h1 span:last-child { color:#e97940; }
-.lede { max-width:490px; font-size:18px; line-height:1.5; }
-.meta { color:var(--muted); font-size:12px; margin-top:24px; }
+h1 span { display: block; }
+h1 .accent { color: #e66f45; }
+.subtitle {
+  max-width: 550px;
+  font-size: clamp(17px, 2.1vw, 22px);
+  line-height: 1.5;
+}
+.meta { margin-top: 24px; color: var(--muted); font-size: 12px; }
+.pill {
+  display: inline-block;
+  padding: 6px 11px;
+  border: 1.3px solid var(--line);
+  border-radius: 99px;
+  background: var(--paper);
+  font-size: 11px;
+  font-weight: 850;
+}
 .hero-art {
-  background:#111; border-radius:28px; padding:15px;
-  position:relative; transform:rotate(1deg);
+  position: relative;
+  min-height: 350px;
+  display: grid;
+  place-items: center;
+  padding: 22px;
+  border: 1.5px solid var(--line);
+  border-radius: 35px;
+  background: var(--blue);
+  box-shadow: var(--shadow);
+  overflow: hidden;
 }
-.hero-art img { width:100%; display:block; }
+.hero-art::before {
+  content: "";
+  position: absolute;
+  width: 245px;
+  height: 245px;
+  border: 1px dashed rgba(37,40,33,.28);
+  border-radius: 50%;
+}
+.hero-art img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-height: 350px;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
 .sticker {
-  position:absolute; display:grid; place-items:center;
-  border:2px solid var(--ink); border-radius:50%;
-  width:88px; height:88px; text-align:center;
-  font-size:12px; font-weight:900; line-height:1.1;
-  transform:rotate(9deg); box-shadow:3px 4px 0 var(--ink);
+  position: absolute;
+  z-index: 2;
+  padding: 10px 14px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--yellow);
+  font-size: 12px;
+  font-weight: 900;
+  box-shadow: 2px 3px 0 var(--line);
 }
-.sticker.yellow { background:var(--yellow); right:-15px; top:-22px; }
-.sticker.purple { background:var(--purple); left:-20px; bottom:20px; transform:rotate(-10deg); }
-.marquee {
-  overflow:hidden; white-space:nowrap; padding:12px 0;
-  border-top:1px solid var(--ink); border-bottom:1px solid var(--ink);
-  font-size:12px; font-weight:900; letter-spacing:.12em;
+.sticker.one { top: 20px; left: 17px; transform: rotate(-7deg); }
+.sticker.two { right: 15px; bottom: 22px; background: var(--purple); transform: rotate(5deg); }
+section { padding: 66px 0; scroll-margin-top: 70px; }
+.section-head { max-width: 760px; margin-bottom: 30px; }
+.section-no { font-size: 12px; font-weight: 900; letter-spacing: .13em; }
+h2 {
+  margin: 12px 0 18px;
+  font-size: clamp(34px, 5.8vw, 62px);
+  line-height: 1;
+  letter-spacing: -.065em;
 }
-.marquee span { margin-right:28px; }
-section { padding:70px 0; border-bottom:1px solid var(--line); scroll-margin-top:25px; }
-.section-top {
-  display:flex; justify-content:space-between; gap:20px;
-  align-items:flex-start; margin-bottom:30px;
-}
-.kicker { font-size:11px; letter-spacing:.13em; font-weight:900; text-transform:uppercase; }
-h2 { font-size:clamp(34px,5vw,62px); line-height:.98; letter-spacing:-.065em; margin:12px 0; }
-h3 { font-size:21px; line-height:1.12; letter-spacing:-.035em; margin:0 0 12px; }
-p { margin:0 0 12px; }
-.small { color:var(--muted); font-size:12px; }
-.section-note { max-width:310px; font-size:14px; color:var(--muted); }
-.grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:15px; }
+h3 { margin: 0 0 12px; font-size: 21px; line-height: 1.2; }
+p { color: var(--muted); }
+.lead { color: var(--ink); font-size: 19px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 17px; }
 .card {
-  border:1px solid var(--ink); border-radius:20px;
-  padding:22px; background:var(--white); min-width:0;
-  box-shadow:3px 4px 0 var(--ink);
+  padding: 25px;
+  border: 1.5px solid var(--line);
+  border-radius: 23px;
+  background: var(--paper);
+  box-shadow: 3px 4px 0 var(--line);
 }
-.card.blue { background:var(--blue); }
-.card.orange { background:var(--orange); }
-.card.yellow { background:var(--yellow); }
-.card.purple { background:var(--purple); }
-.card.green { background:var(--green); }
-.num {
-  display:inline-grid; place-items:center; width:34px; height:34px;
-  border:1.5px solid var(--ink); border-radius:50%;
-  font-size:12px; font-weight:900; margin-bottom:24px;
-}
-.card p { font-size:14px; }
-.tag {
-  display:inline-block; border:1px solid currentColor; border-radius:999px;
-  padding:4px 8px; font-size:10px; text-transform:uppercase;
-  font-weight:850; letter-spacing:.07em; margin:3px 3px 0 0;
-}
-.duck-row {
-  display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:center;
-  margin-top:28px;
-}
-.photo {
-  border-radius:20px; overflow:hidden; background:#111;
-  border:1px solid var(--ink);
-}
-.photo img { width:100%; height:100%; object-fit:cover; display:block; }
-.photo-caption { padding:10px 13px; font-size:11px; background:var(--white); }
-.equation {
-  display:grid; grid-template-columns:repeat(5,1fr); gap:8px; align-items:stretch;
-  margin:22px 0;
-}
-.step {
-  padding:16px 12px; border:1px solid var(--ink); border-radius:14px;
-  text-align:center; background:var(--white); font-size:12px; font-weight:800;
-}
-.step b { display:block; font-size:22px; margin-bottom:7px; }
-.arrow { align-self:center; text-align:center; font-weight:900; }
+.card.blue { background: var(--blue); }
+.card.orange { background: #ffcfb7; }
+.card.purple { background: var(--purple); }
+.card.yellow { background: var(--yellow); }
+.card.green { background: var(--green); }
+.card p:last-child { margin-bottom: 0; }
+.card p { color: #51564c; }
+.big-num { margin-bottom: 18px; font-size: 12px; font-weight: 950; letter-spacing: .12em; }
 .callout {
-  padding:26px; border-radius:20px; border:1px solid var(--ink);
-  background:var(--ink); color:var(--paper); font-size:clamp(20px,3vw,31px);
-  line-height:1.2; letter-spacing:-.04em; margin-top:22px;
+  margin: 30px 0;
+  padding: 22px 25px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: var(--yellow);
+  font-size: clamp(19px, 3vw, 27px);
+  font-weight: 850;
+  line-height: 1.35;
 }
-.callout em { color:var(--yellow); font-style:normal; }
-.compare { width:100%; border-collapse:collapse; font-size:13px; background:var(--white); border-radius:16px; overflow:hidden; }
-.compare th,.compare td { padding:14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--line); }
-.compare th { background:var(--blue); font-size:11px; text-transform:uppercase; letter-spacing:.07em; }
-.compare tr:last-child td { border-bottom:0; }
-.compare td:first-child { font-weight:850; width:22%; }
-.stack { display:grid; gap:10px; }
-.layer {
-  display:grid; grid-template-columns:170px 1fr; gap:18px;
-  align-items:center; padding:19px 21px; border:1px solid var(--ink);
-  border-radius:16px; background:var(--white);
+.compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 22px;
 }
-.layer:nth-child(1) { background:var(--orange); }
-.layer:nth-child(2) { background:var(--purple); }
-.layer:nth-child(3) { background:var(--blue); }
-.layer:nth-child(4) { background:var(--green); }
-.layer .who { font-size:18px; font-weight:950; letter-spacing:-.04em; }
-.layer p { font-size:13px; margin:0; }
-.duck-decor { max-width:155px; width:100%; display:block; margin:12px auto 0; }
-.quote {
-  border-left:4px solid var(--orange); padding:8px 0 8px 18px;
-  font-size:19px; line-height:1.4; margin:25px 0;
+.compare > div {
+  padding: 22px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
 }
-.source-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.source {
-  padding:15px 17px; border:1px solid var(--line); border-radius:14px;
-  background:var(--white); font-size:13px;
+.compare h3 { font-size: 18px; }
+.tag {
+  display: inline-block;
+  margin: 0 4px 6px 0;
+  padding: 5px 9px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: white;
+  font-size: 11px;
+  font-weight: 800;
 }
-.source a { font-weight:850; }
-footer { padding:35px 0 55px; }
-.footer-row { display:flex; justify-content:space-between; gap:20px; flex-wrap:wrap; }
-@media(max-width:760px) {
-  .hero { grid-template-columns:1fr; padding-top:42px; }
-  .hero-art { margin:10px 8px 0; }
-  .grid { grid-template-columns:1fr; }
-  .section-top { display:block; }
-  .section-note { margin-top:14px; }
-  .duck-row { grid-template-columns:1fr; }
-  .equation { grid-template-columns:1fr; }
-  .arrow { transform:rotate(90deg); }
-  .layer { grid-template-columns:1fr; gap:5px; }
-  .source-list { grid-template-columns:1fr; }
-  .navlinks { gap:10px; }
-  .compare { font-size:11px; }
-  .compare th,.compare td { padding:9px; }
+.film {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 22px;
+  padding: clamp(24px, 5vw, 42px);
+  border: 1.5px solid var(--line);
+  border-radius: 28px;
+  background: var(--blue);
+  box-shadow: var(--shadow);
+}
+.film h2 { font-size: clamp(32px, 5vw, 50px); }
+.film p { max-width: 550px; }
+.film-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 18px;
+  border: 1.5px solid var(--line);
+  border-radius: 99px;
+  background: var(--paper);
+  box-shadow: 3px 4px 0 var(--line);
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 900;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.film-link:hover { transform: translateY(-3px); box-shadow: 4px 6px 0 var(--line); }
+.play {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--orange);
+}
+.steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 13px; }
+.step {
+  padding: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+}
+.step:nth-child(2) { background: var(--purple); }
+.step:nth-child(3) { background: var(--yellow); }
+.step:nth-child(4) { background: var(--green); }
+.step .n { font-size: 12px; font-weight: 950; }
+.step h3 { margin-top: 16px; font-size: 17px; }
+.step p { font-size: 13px; }
+.stack { display: grid; gap: 12px; margin-top: 28px; }
+.stack-row {
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 20px;
+  border: 1.5px solid var(--line);
+  border-radius: 19px;
+  background: var(--paper);
+}
+.stack-row:nth-child(1) { background: var(--orange); }
+.stack-row:nth-child(2) { background: var(--purple); }
+.stack-row:nth-child(3) { background: var(--blue); }
+.stack-row h3 { margin: 0; }
+.stack-row p { margin: 0; color: #51564c; }
+.band {
+  padding: 55px 0;
+  background: var(--yellow);
+  border-top: 1.5px solid var(--line);
+  border-bottom: 1.5px solid var(--line);
+}
+.band .lead { max-width: 820px; }
+footer { padding: 30px 0 45px; }
+footer p { font-size: 12px; }
+.sources { display: flex; flex-wrap: wrap; gap: 10px; }
+.sources a {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.sources a:hover { background: var(--yellow); }
+.reveal { animation: fadeUp .75s ease-out both; }
+.delay { animation-delay: .15s; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes duckFloat {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-8px) rotate(1deg); }
+}
+.hero-art img { animation: duckFloat 4s ease-in-out infinite; }
+.card, .step, .stack-row {
+  transition: transform .22s ease, box-shadow .22s ease;
+}
+.card:hover, .step:hover, .stack-row:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; padding-top: 45px; }
+  .hero-art { min-height: 280px; }
+  .hero-art img { max-height: 280px; }
+  .grid, .compare { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .film { grid-template-columns: 1fr; }
+  .stack-row { grid-template-columns: 1fr; gap: 8px; }
+  nav { align-items: flex-start; }
+  .nav-links { justify-content: flex-end; gap: 8px 12px; }
+}
+@media (max-width: 430px) {
+  .wrap { width: 91%; }
+  .steps { grid-template-columns: 1fr; }
+  .nav-links a { font-size: 10px; }
+  .logo { font-size: 13px; }
+  section { padding: 48px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
 }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <nav>
-    <div class="brand">MICRODUCK®</div>
-    <div class="navlinks">
-      <a href="#tech">The tech</a>
-      <a href="#terms">The terms</a>
-      <a href="#ecosystem">The ecosystem</a>
-      <a href="#europe">The strategy</a>
-    </div>
-  </nav>
 
-  <header class="hero">
-    <div>
-      <span class="eyebrow">Tech Radar · Field note 001</span>
-      <h1><span>MICRO</span><span>DUCK.</span></h1>
-      <p class="lede"><strong>A tiny robot. A much bigger shift.</strong><br>
-      What Microduck reveals about reinforcement learning, embodied AI, open robotics, and NVIDIA's Physical AI strategy.</p>
-      <div class="meta">A field note on the next layer of AI · October 2026</div>
-    </div>
-    <div class="hero-art">
-      <img src="https://pollen-robotics.com/assets/microduck/squad.webp" alt="Four colourful Microduck robots">
-      <div class="sticker yellow">MADE<br>TO MOVE</div>
-      <div class="sticker purple">READY<br>TO LEARN</div>
-    </div>
-  </header>
-</div>
+<nav>
+  <a class="logo" href="#top">MICRO<span>DUCK</span>®</a>
+  <div class="nav-links">
+    <a href="#learning">The tech</a>
+    <a href="#terms">The terms</a>
+    <a href="#ecosystem">The ecosystem</a>
+    <a href="#takeaway">The takeaway</a>
+  </div>
+</nav>
 
-<div class="marquee">
-  <span>✳ PHYSICAL AI</span><span>✳ REINFORCEMENT LEARNING</span>
-  <span>✳ OPEN ROBOTICS</span><span>✳ SIM-TO-REAL</span>
-  <span>✳ PHYSICAL AI</span><span>✳ REINFORCEMENT LEARNING</span>
-</div>
+<main id="top">
+  <div class="wrap">
+    <header class="hero">
+      <div class="reveal">
+        <span class="kicker">A tiny robot, a bigger idea</span>
+        <h1><span>MICRO</span><span class="accent">DUCK.</span></h1>
+        <p class="subtitle">What happens when AI stops only generating answers and starts learning how to move in the real world?</p>
+        <p><span class="pill">Reinforcement learning</span> <span class="pill">Robotics</span> <span class="pill">Physical AI</span></p>
+        <p class="meta">A field guide to the technology, terminology and ecosystem behind a little biped robot.</p>
+      </div>
+      <div class="hero-art reveal delay">
+        <span class="sticker one">MADE TO MOVE</span>
+        <img src="https://pollen-robotics.com/assets/microduck/squad.webp"
+             alt="The Microduck robot squad"
+             onerror="this.style.display='none'; this.parentElement.classList.add('image-fallback');">
+        <span class="sticker two">READY TO LEARN!</span>
+      </div>
+    </header>
 
-<div class="wrap">
-<section id="tech">
-  <div class="section-top">
-    <div>
-      <div class="kicker">01 / The technology</div>
-      <h2>Not programmed<br>for every move.</h2>
+    <div class="film">
+      <div>
+        <span class="eyebrow">REAL ROBOT · REAL MOVEMENT</span>
+        <h2>A little duck.<br>A lot of learning.</h2>
+        <p>See Microduck in action in the official launch film. The link opens Pollen Robotics' own page, so the site stays lightweight.</p>
+      </div>
+      <a class="film-link" href="https://pollen-robotics.com/microduck/" target="_blank" rel="noopener">
+        <span class="play">▶</span> Watch the official film ↗
+      </a>
     </div>
-    <p class="section-note">The interesting shift: instead of hand-coding every movement, developers can train a policy that learns how to act.</p>
+
+    <section id="learning">
+      <div class="section-head">
+        <span class="section-no">01 / THE TECH</span>
+        <h2>It doesn't just follow instructions.<br>It learns how to move.</h2>
+        <p class="lead">Microduck is a small biped robot built around a powerful idea: train a behaviour, test it, and improve it through experience.</p>
+      </div>
+      <div class="grid">
+        <article class="card blue">
+          <div class="big-num">01 — LEARN</div>
+          <h3>Reinforcement learning</h3>
+          <p>An agent tries actions, receives rewards or penalties, and improves its policy over many attempts. The goal is not to memorize one fixed sequence, but to learn a strategy for acting.</p>
+        </article>
+        <article class="card orange">
+          <div class="big-num">02 — PRACTISE</div>
+          <h3>Simulation first</h3>
+          <p>Training in a physics simulator allows many experiments without repeatedly risking the physical robot. The simulated world can be reset and run at scale.</p>
+        </article>
+        <article class="card purple">
+          <div class="big-num">03 — TRANSFER</div>
+          <h3>Sim-to-real</h3>
+          <p>A learned policy is deployed on the real robot. Differences between simulation and reality still matter, so the system may need refinement and retraining.</p>
+        </article>
+        <article class="card yellow">
+          <div class="big-num">04 — IMPROVE</div>
+          <h3>Policies are shareable</h3>
+          <p>A movement policy can be retrained, evaluated and shared. The robot becomes a platform for experimenting with behaviour, not just a pre-programmed toy.</p>
+        </article>
+      </div>
+      <div class="callout">The interesting shift: from writing every movement by hand to training a system that learns a way to achieve a goal.</div>
+    </section>
   </div>
 
-  <div class="grid">
-    <article class="card blue">
-      <span class="num">01</span>
-      <h3>Learn a policy</h3>
-      <p>Reinforcement learning optimizes a policy through trial and feedback. The policy maps the robot's observed state to actions that aim to maximize expected reward.</p>
-      <span class="tag">RL</span><span class="tag">Policy learning</span>
-    </article>
-    <article class="card orange">
-      <span class="num">02</span>
-      <h3>Practise in simulation</h3>
-      <p>Physics simulation lets training run repeatedly without every experiment requiring a physical robot. Microduck's published stack uses MuJoCo for simulation.</p>
-      <span class="tag">Simulation</span><span class="tag">Parallel trials</span>
-    </article>
-    <article class="card purple">
-      <span class="num">03</span>
-      <h3>Transfer to reality</h3>
-      <p>Deploy the learned policy on the real robot, test the gap between simulation and reality, then refine and retrain when needed.</p>
-      <span class="tag">Sim-to-real</span><span class="tag">Iteration</span>
-    </article>
-  </div>
-
-  <div class="equation">
-    <div class="step"><b>①</b>Observe<br><span class="small">Robot state</span></div>
-    <div class="step"><b>②</b>Act<br><span class="small">Choose movement</span></div>
-    <div class="step"><b>③</b>Score<br><span class="small">Reward / penalty</span></div>
-    <div class="step"><b>④</b>Update<br><span class="small">Improve policy</span></div>
-    <div class="step"><b>↻</b>Repeat<br><span class="small">Train, test, refine</span></div>
-  </div>
-
-  <div class="duck-row">
-    <div class="photo">
-      <img src="https://pollen-robotics.com/assets/microduck/gallery/kickabout.webp" alt="Microducks interacting with a ball">
-      <div class="photo-caption">A robot's actions change the physical world — not just the next line of text.</div>
-    </div>
-    <div>
-      <div class="kicker">The key distinction</div>
-      <h3>LLMs learn sequences.<br>Robot policies learn actions.</h3>
-      <p>Both optimize parameterized models, but their objectives differ. A language model is commonly pretrained to predict the next token; an RL policy learns actions that maximize expected reward under an environment's dynamics.</p>
-      <p>Transformer is a neural-network architecture. Reinforcement learning is a family of learning and decision-making methods. They are not competing labels: a robot policy can itself use a Transformer.</p>
-      <span class="tag">Sequence prediction</span>
-      <span class="tag">Action selection</span>
-      <span class="tag">Feedback loops</span>
-    </div>
-  </div>
-
-  <div class="callout">
-    The bigger shift: AI outputs are no longer only <em>words, images, or code.</em> They can become actions that change the physical world.
-  </div>
-</section>
-
-<section id="terms">
-  <div class="section-top">
-    <div>
-      <div class="kicker">02 / The language</div>
-      <h2>Embodied AI<br>≠ just a buzzword.</h2>
-    </div>
-    <p class="section-note">“Embodied AI” is prominent in Chinese AI discourse. “Physical AI” is a framing NVIDIA uses to describe the technologies and industry it wants to enable.</p>
-  </div>
-
-  <div class="grid">
-    <article class="card yellow">
-      <span class="num">A</span>
-      <h3>Embodied AI</h3>
-      <p><strong>Research lens:</strong> how does intelligence emerge through a body, perception, action, and interaction with an environment?</p>
-      <p class="small">Focus: learning, generalization, sensing, action, and the agent–environment loop.</p>
-    </article>
-    <article class="card green">
-      <span class="num">B</span>
-      <h3>Physical AI</h3>
-      <p><strong>Industry lens:</strong> how can AI understand, simulate, and act in the physical world?</p>
-      <p class="small">Focus: models, simulation, computing, robotics, autonomous systems, and deployment.</p>
-    </article>
-    <article class="card">
-      <span class="num">C</span>
-      <h3>The overlap</h3>
-      <p>Both concern AI interacting with the physical world. The boundary is not strict, and the terms are not exact synonyms.</p>
-      <p class="small">Useful distinction, not a universal academic definition.</p>
-    </article>
-  </div>
-
-  <div style="margin-top:26px">
-    <table class="compare">
-      <thead><tr><th>Question</th><th>Embodied AI</th><th>Physical AI</th></tr></thead>
-      <tbody>
-        <tr><td>Starting point</td><td>How does an agent learn through interaction?</td><td>What technologies make physical-world AI possible?</td></tr>
-        <tr><td>Typical emphasis</td><td>Intelligence, perception, action, learning</td><td>Models, simulation, compute, deployment</td></tr>
-        <tr><td>Microduck example</td><td>Learning a robust walking policy</td><td>The full workflow from simulation to physical robot</td></tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="quote">One robot, two lenses: <strong>Embodied AI asks how the intelligence learns to act. Physical AI asks how that intelligence becomes a working system.</strong></div>
-</section>
-
-<section id="ecosystem">
-  <div class="section-top">
-    <div>
-      <div class="kicker">03 / The industry stack</div>
-      <h2>Why these<br>three players?</h2>
-    </div>
-    <p class="section-note">Pollen Robotics, Hugging Face, and NVIDIA occupy different — and complementary — layers of the AI ecosystem.</p>
-  </div>
-
-  <div class="stack">
-    <div class="layer">
-      <div class="who">NVIDIA<br><span class="small">Compute + platform</span></div>
-      <p><strong>Build and run the workflow.</strong> GPUs, accelerated computing, Isaac tools, simulation, cloud training, and deployment infrastructure.</p>
-    </div>
-    <div class="layer">
-      <div class="who">Hugging Face<br><span class="small">Open ecosystem</span></div>
-      <p><strong>Share and reuse AI.</strong> Models, datasets, developer tools, collaboration, and an open community extended into robotics.</p>
-    </div>
-    <div class="layer">
-      <div class="who">Pollen Robotics<br><span class="small">Robot hardware</span></div>
-      <p><strong>Give AI a body.</strong> Mechanical design, motors, sensors, control systems, and a real robot on which to test learned behaviour.</p>
-    </div>
-    <div class="layer">
-      <div class="who">Developers<br><span class="small">Experiment + build</span></div>
-      <p><strong>Make new behaviours.</strong> Train, evaluate, modify, and publish policies rather than treating every factory behaviour as a fixed feature.</p>
+  <div class="band">
+    <div class="wrap">
+      <span class="section-no">A USEFUL ANALOGY</span>
+      <h2>Learning to speak vs.<br>learning to stand.</h2>
+      <p class="lead">Both involve learning patterns from experience, but their training objectives and outputs are different.</p>
+      <div class="compare">
+        <div>
+          <span class="pill">LLMs</span>
+          <h3>Predict the next token</h3>
+          <p>Large language models commonly learn statistical patterns in text by predicting tokens. Their outputs are sequences of language tokens.</p>
+        </div>
+        <div>
+          <span class="pill">Robot policies</span>
+          <h3>Choose the next action</h3>
+          <p>A robot policy maps observations or states to actions. Reinforcement learning can improve those actions based on reward and task performance.</p>
+        </div>
+      </div>
+      <p>Important distinction: a Transformer is a model architecture, while reinforcement learning is a family of learning methods. They are not direct opposites; a Transformer can also be used inside a system trained with reinforcement learning.</p>
     </div>
   </div>
 
-  <div class="duck-row">
-    <div>
-      <h3>From a product to a platform</h3>
-      <p>Microduck's SDK, simulator, and reinforcement-learning stack are published openly. Its behaviours can be retrained and shared — making the robot a learning platform, not only a finished gadget.</p>
-      <p>Hugging Face acquired Pollen Robotics in 2025. NVIDIA is not Pollen's parent company: its role in the GTC demonstration was to show how NVIDIA tools can support the training and deployment workflow.</p>
-      <span class="tag">Open source</span><span class="tag">Reusable policies</span><span class="tag">Developer ecosystem</span>
+  <div class="wrap">
+    <section id="terms">
+      <div class="section-head">
+        <span class="section-no">02 / THE TERMS</span>
+        <h2>Embodied AI vs.<br>Physical AI.</h2>
+        <p class="lead">The terms overlap, but they point our attention toward slightly different parts of the same challenge: intelligent systems acting in the physical world.</p>
+      </div>
+      <div class="grid">
+        <article class="card purple">
+          <div class="big-num">THE INTELLIGENCE LENS</div>
+          <h3>Embodied AI</h3>
+          <p>Often emphasizes the relationship between a body, perception, action and the environment. Intelligence is shaped by interacting with the world, rather than processing information in isolation.</p>
+          <span class="tag">Body</span><span class="tag">Perception</span><span class="tag">Action</span>
+        </article>
+        <article class="card blue">
+          <div class="big-num">THE SYSTEMS LENS</div>
+          <h3>Physical AI</h3>
+          <p>Often emphasizes AI systems that understand, predict and act in physical environments, including the engineering stack needed to train, simulate, deploy and operate them.</p>
+          <span class="tag">Simulation</span><span class="tag">Compute</span><span class="tag">Deployment</span>
+        </article>
+      </div>
+      <div class="callout">Not two competing scientific categories. They are overlapping ways of framing AI that connects to the physical world.</div>
+      <p>In Chinese technology conversations, “具身智能” is a particularly visible term. NVIDIA often uses “Physical AI” to describe the wider technology and industrial ecosystem around real-world AI. The exact boundary depends on context.</p>
+    </section>
+
+    <section id="ecosystem">
+      <div class="section-head">
+        <span class="section-no">03 / THE ECOSYSTEM</span>
+        <h2>Three players.<br>Different pieces of the puzzle.</h2>
+        <p class="lead">Microduck is interesting not only as a robot, but also as an example of how hardware, open-source communities and accelerated computing connect.</p>
+      </div>
+      <div class="stack">
+        <div class="stack-row">
+          <h3>Pollen Robotics</h3>
+          <p><strong>The robot and robotics expertise.</strong> Pollen develops the hardware and robotics platform that lets developers experiment with real physical movement.</p>
+        </div>
+        <div class="stack-row">
+          <h3>Hugging Face</h3>
+          <p><strong>The open ecosystem.</strong> Models, datasets, code and community infrastructure help people share experiments and build on one another's work. Hugging Face acquired Pollen Robotics in 2025.</p>
+        </div>
+        <div class="stack-row">
+          <h3>NVIDIA</h3>
+          <p><strong>The computing and simulation stack.</strong> GPUs, accelerated computing and simulation tools can support the training and development of Physical AI systems. NVIDIA is not the parent company of Pollen Robotics.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="band">
+    <div class="wrap">
+      <span class="section-no">04 / THE STRATEGY</span>
+      <h2>Why show a tiny duck<br>on a big AI stage?</h2>
+      <p class="lead">A physical robot makes an abstract technology stack tangible. It gives people something they can watch, test, train and potentially build on.</p>
+      <div class="grid">
+        <article class="card">
+          <h3>From chips to outcomes</h3>
+          <p>AI infrastructure is easier to understand when you can see the chain from computing and simulation to a robot performing a task.</p>
+        </article>
+        <article class="card">
+          <h3>Open development</h3>
+          <p>A small, accessible robot can invite developers and researchers to experiment with policies instead of treating robotics as a closed industrial system.</p>
+        </article>
+        <article class="card">
+          <h3>Europe's industrial context</h3>
+          <p>Robotics connects AI to Europe's engineering, manufacturing and industrial technology base. That is a strategic context, not proof of any single corporate motive.</p>
+        </article>
+        <article class="card">
+          <h3>A demo is a starting point</h3>
+          <p>A successful demonstration shows what is possible in a particular setup. It does not, by itself, prove that a robot can reliably handle every unfamiliar real-world situation.</p>
+        </article>
+      </div>
     </div>
-    <div class="photo">
-      <img src="https://pollen-robotics.com/assets/microduck/squad.webp" alt="The four Microduck colourways">
-      <div class="photo-caption">Same underlying robot. Different shells. A platform designed to be retrained.</div>
-    </div>
-  </div>
-</section>
-
-<section id="europe">
-  <div class="section-top">
-    <div>
-      <div class="kicker">04 / The strategic signal</div>
-      <h2>Why did Jensen<br>Huang show it?</h2>
-    </div>
-    <p class="section-note">The keynote was not simply a product launch. Microduck made NVIDIA's wider Physical AI story visible.</p>
   </div>
 
-  <div class="grid">
-    <article class="card orange">
-      <span class="num">01</span>
-      <h3>Make the stack tangible</h3>
-      <p>A small robot demonstrates a complete workflow: simulation, cloud training, local evaluation, then deployment to real hardware.</p>
-    </article>
-    <article class="card blue">
-      <span class="num">02</span>
-      <h3>Expand beyond GPUs</h3>
-      <p>NVIDIA's strategic offer is not just chips. It wants developers to use its computing, software, simulation, and deployment ecosystem.</p>
-    </article>
-    <article class="card purple">
-      <span class="num">03</span>
-      <h3>Connect to Europe's industry</h3>
-      <p>European strengths in precision engineering, mechatronics, automotive, and manufacturing make the region a meaningful Physical AI market.</p>
-    </article>
-  </div>
+  <div class="wrap">
+    <section id="takeaway">
+      <div class="section-head">
+        <span class="section-no">05 / THE VIBE-CODING CONNECTION</span>
+        <h2>Code is no longer<br>the whole story.</h2>
+        <p class="lead">In vibe coding, a developer can describe an outcome, orchestrate tools, test what was generated and refine it. In robotics, the same loop becomes even more tangible: the output may move something in the real world.</p>
+      </div>
+      <div class="steps">
+        <article class="step">
+          <div class="n">01 / DEFINE</div>
+          <h3>Describe a goal</h3>
+          <p>What should the system accomplish?</p>
+        </article>
+        <article class="step">
+          <div class="n">02 / TRAIN</div>
+          <h3>Build a policy</h3>
+          <p>Learn a behaviour in simulation or through experience.</p>
+        </article>
+        <article class="step">
+          <div class="n">03 / TEST</div>
+          <h3>Observe reality</h3>
+          <p>Check whether the behaviour works outside the ideal setup.</p>
+        </article>
+        <article class="step">
+          <div class="n">04 / REFINE</div>
+          <h3>Repeat the loop</h3>
+          <p>Evaluate, adjust, retrain and share what works.</p>
+        </article>
+      </div>
+      <div class="callout">The developer's role shifts from specifying every detail to directing, evaluating and improving a system's behaviour.</div>
+    </section>
 
-  <div class="duck-row">
-    <div class="photo">
-      <img src="https://pollen-robotics.com/assets/microduck/gallery/kickabout.webp" alt="Microducks in a physical environment">
-      <div class="photo-caption">A memorable demo — but a demo is not proof of general-purpose autonomy.</div>
-    </div>
-    <div>
-      <div class="kicker">The GTC Berlin connection</div>
-      <h3>Three computers, one workflow</h3>
-      <p><strong>1. Cloud:</strong> large-scale training runs on NVIDIA computing systems.</p>
-      <p><strong>2. Digital twin:</strong> simulate and evaluate behaviours before deploying them.</p>
-      <p><strong>3. Physical robot:</strong> run the learned policy on the actual Microduck.</p>
-      <p class="small">At GTC Berlin on October 21, 2026, Huang used Microduck to connect NVIDIA's platform story with the broader message that Europe should build AI capabilities, not only consume AI services.</p>
-    </div>
+    <footer>
+      <span class="section-no">KEEP EXPLORING</span>
+      <h2>Go a little deeper.</h2>
+      <div class="sources">
+        <a href="https://pollen-robotics.com/microduck/" target="_blank" rel="noopener">Official Microduck page ↗</a>
+        <a href="https://github.com/pollen-robotics/microduck" target="_blank" rel="noopener">Microduck on GitHub ↗</a>
+        <a href="https://huggingface.co/" target="_blank" rel="noopener">Hugging Face ↗</a>
+        <a href="https://www.nvidia.com/" target="_blank" rel="noopener">NVIDIA ↗</a>
+      </div>
+      <p>Independent educational overview. Product details and capabilities may change; consult the official sources for the latest information.</p>
+      <p>Made with curiosity, a little code, and one very small duck.</p>
+    </footer>
   </div>
-
-  <div class="callout">
-    <em>Tech Radar reading:</em> the next competition is not only about better models. It is about the stack that turns models into reliable action.
-  </div>
-</section>
-
-<section id="takeaway">
-  <div class="section-top">
-    <div>
-      <div class="kicker">Radar takeaway</div>
-      <h2>From code<br>to behaviour.</h2>
-    </div>
-    <p class="section-note">What this means for Vibe Coding: developers increasingly describe goals, orchestrate tools, run experiments, and validate outcomes — not just write every instruction by hand.</p>
-  </div>
-
-  <div class="grid">
-    <article class="card yellow">
-      <h3>Watch</h3>
-      <p>Open robot-learning stacks and reusable policies.</p>
-    </article>
-    <article class="card green">
-      <h3>Question</h3>
-      <p>How robust is a policy outside its training environment?</p>
-    </article>
-    <article class="card blue">
-      <h3>Don't overclaim</h3>
-      <p>A compelling keynote demo does not mean general-purpose robotics is solved.</p>
-    </article>
-  </div>
-
-  <div class="quote">If an AI agent can coordinate tools, train a policy, and deploy it to a robot — what does “writing software” mean when the output is behaviour in the real world?</div>
-</section>
-
-<section id="sources">
-  <div class="section-top">
-    <div>
-      <div class="kicker">Further reading</div>
-      <h2>Follow the trail.</h2>
-    </div>
-    <p class="section-note">Official sources first. Check the technical documentation before treating demo claims as general results.</p>
-  </div>
-  <div class="source-list">
-    <div class="source"><a href="https://pollen-robotics.com/microduck/" target="_blank" rel="noopener">Pollen Robotics — Microduck ↗</a><br>Product, specs, open-source stack, training workflow.</div>
-    <div class="source"><a href="https://github.com/pollen-robotics/microduck" target="_blank" rel="noopener">Microduck GitHub ↗</a><br>SDK and robot-learning implementation.</div>
-    <div class="source"><a href="https://blogs.nvidia.com/blog/gtc-berlin-2026-keynote/" target="_blank" rel="noopener">NVIDIA — GTC Berlin keynote ↗</a><br>Microduck demonstration and NVIDIA's platform narrative.</div>
-    <div class="source"><a href="https://www.nvidia.com/en-eu/gtc/keynote/" target="_blank" rel="noopener">NVIDIA — GTC Berlin ↗</a><br>Official keynote and conference context.</div>
-    <div class="source"><a href="https://huggingface.co/pollen-robotics" target="_blank" rel="noopener">Hugging Face — Pollen Robotics ↗</a><br>Open robotics ecosystem and product information.</div>
-    <div class="source"><a href="https://www.reuters.com/business/germanys-agile-make-up-2000-humanoid-robots-with-nvidia-ceo-says-2026-10-21/" target="_blank" rel="noopener">Reuters — NVIDIA in Europe ↗</a><br>Independent reporting on European industry and Physical AI.</div>
-  </div>
-  <p class="small" style="margin-top:20px">Conceptual comparison, not a claim that Embodied AI and Physical AI have universally fixed definitions. Industry strategy is interpreted from public statements and reporting.</p>
-</section>
-
-<footer>
-  <div class="footer-row">
-    <div><div class="brand">MICRODUCK®</div><div class="small">A Tech Radar field note · Vibe Coding</div></div>
-    <div class="small">Made to move. Ready to learn. 🐤</div>
-  </div>
-</footer>
-</div>
+</main>
 </body>
 </html>
